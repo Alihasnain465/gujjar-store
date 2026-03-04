@@ -1,0 +1,27 @@
+// This is your Prisma schema file
+// Hafiz bhai, is mein @db.Text lazmi hai taake mobile ki photos save ho sakein
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  // 🔗 Direct URL Neon DB ke liye zaroori hai
+  directUrl = env("DIRECT_URL") 
+}
+
+// 📦 Product Model: Gujjar Store ki Inventory
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  price       Float
+  
+  // 📸 Image field ko @db.Text diya hai taake computer/mobile ki photos save hon
+  image       String   @db.Text 
+  
+  description String?
+  category    String?
+  createdAt   DateTime @default(now())
+}
